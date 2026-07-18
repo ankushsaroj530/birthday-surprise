@@ -1355,3 +1355,228 @@ h2{
     box-shadow:0 15px 40px rgba(0,0,0,.5);
 
 }
+
+
+/* ========================= */
+/* Quiz */
+/* ========================= */
+
+#quiz-page{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+
+    visibility:hidden;
+    opacity:0;
+
+    transition:1s;
+
+}
+
+#quiz-page.show{
+
+    visibility:visible;
+    opacity:1;
+
+}
+
+.quiz-card{
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    width:450px;
+
+}
+
+
+
+.quiz-card h1{
+
+    color:#ff4d6d;
+
+}
+
+.quiz-card p{
+
+    font-size:22px;
+
+    margin:25px 0;
+
+}
+
+.option{
+
+    width:100%;
+
+    padding:15px;
+
+    margin:10px 0;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#ff4d6d;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.option:hover{
+
+    transform:scale(1.03);
+
+}
+
+/* ========================= */
+/* Popup */
+/* ========================= */
+
+#birthdayPopup{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.6);
+
+    visibility:hidden;
+
+    opacity:0;
+
+    transition:.5s;
+
+}
+
+#birthdayPopup.show{
+
+    visibility:visible;
+
+    opacity:1;
+
+}
+
+.popup-box{
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    animation:popup .4s;
+
+}
+
+.popup-box h1{
+
+    color:#ff4d6d;
+
+}
+
+@keyframes popup{
+
+    from{
+
+        transform:scale(.5);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* ========================= */
+/* Wrong Answer Animation */
+/* ========================= */
+
+.wrong{
+
+    background:#ff4d4d !important;
+
+    animation:shake .5s;
+
+}
+
+@keyframes shake{
+
+    0%{transform:translateX(0);}
+    20%{transform:translateX(-10px);}
+    40%{transform:translateX(10px);}
+    60%{transform:translateX(-10px);}
+    80%{transform:translateX(10px);}
+    100%{transform:translateX(0);}
+
+}
+
+/* ========================= */
+/* Continue Button */
+/* ========================= */
+
+#cakeBtn{
+
+    margin-top:40px;
+
+    padding:20px 60px;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:white;
+
+    background:linear-gradient(45deg,#ff4d6d,#ff758c);
+
+    border:none;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    box-shadow:0 10px 25px rgba(255,77,109,.4);
+
+    transition:.3s;
+
+}
+
+#cakeBtn:hover{
+
+    transform:scale(1.08);
+
+    box-shadow:0 15px 35px rgba(255,77,109,.6);
+
+}

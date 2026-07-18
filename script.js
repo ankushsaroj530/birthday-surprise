@@ -1,13 +1,11 @@
 // Loading Screen
-
 setTimeout(() => {
 
     document.getElementById("loading-screen").style.display = "none";
 
-    document.getElementById("welcome").classList.add("show");
+    document.getElementById("quiz-page").classList.add("show");
 
-}, 4000);
-
+},4000);
 
 
 // Letter
@@ -47,17 +45,7 @@ let index = 0;
 // Begin Journey
 // Automatically move from Welcome to Letter after 3 seconds
 
-setTimeout(() => {
 
-    document.getElementById("welcome").classList.remove("show");
-
-    document.getElementById("letter-page").classList.add("show");
-
-    music.play().catch(() => {});
-
-    typeLetter();
-
-}, 7000);
 
 // Typewriter
 
@@ -72,25 +60,20 @@ function typeLetter(){
         setTimeout(typeLetter,40);
 
     }
-
     else{
 
-    // Wait 4 seconds after the letter finishes
+    // Wait 5 seconds after the letter finishes typing
     setTimeout(() => {
 
         document.getElementById("letter-page").classList.remove("show");
 
-        document.getElementById("gallery-page").classList.add("show");
+        document.getElementById("final-page").classList.add("show");
 
-        currentPhoto = 0;
-
-        showPhoto();
-
-        slideInterval = setInterval(autoSlide, 1000);
-
-    }, 4000);
+    }, 5000);
 
 }
+
+    
 
 
 }
@@ -249,9 +232,15 @@ birthdayVideo.onended = () => {
 
     document.getElementById("video-page").classList.remove("show");
 
-    document.getElementById("final-page").classList.add("show");
+    document.getElementById("letter-page").classList.add("show");
+
+    index = 0;
+    typing.innerHTML = "";
+
+    typeLetter();
 
 };
+
 
 
 openGift.addEventListener("click", () => {
@@ -279,3 +268,63 @@ openGift.addEventListener("click", () => {
     }, 10000);
 
 });
+
+function checkAnswer(correct, button){
+
+    if(correct){
+
+        // Make correct answer green
+        button.style.background = "#28a745";
+        button.innerHTML = "✅ Your Birthday 🎂";
+
+        // Show popup
+        document.getElementById("birthdayPopup").classList.add("show");
+
+        setTimeout(() => {
+
+    document.getElementById("birthdayPopup").classList.remove("show");
+
+    document.getElementById("quiz-page").classList.remove("show");
+
+    document.getElementById("welcome").classList.add("show");
+
+    // Stay on Welcome for 3 seconds
+    setTimeout(() => {
+
+       document.getElementById("welcome").classList.remove("show");
+
+       document.getElementById("gallery-page").classList.add("show");
+
+      currentPhoto = 0;
+
+      showPhoto();
+
+     slideInterval = setInterval(autoSlide,1000);
+
+        music.play().catch(()=>{});
+        index = 0;
+        typing.innerHTML = "";
+
+        typeLetter();
+
+    }, 3000);
+
+}, 3000);
+
+
+    }
+
+    else
+    {
+        // Wrong answer
+        button.classList.add("wrong");
+
+        setTimeout(()=>{
+
+            button.classList.remove("wrong");
+
+        },500);
+
+    }
+
+}
