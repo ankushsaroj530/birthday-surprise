@@ -1356,6 +1356,45 @@ h2{
 
 }
 
+/* ========================= */
+/* Video Page */
+/* ========================= */
+
+#video-page{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#000;
+
+    visibility:hidden;
+
+    opacity:0;
+
+    transition:1s;
+
+    overflow:hidden;
+
+    z-index:999;
+
+}
+
+#video-page.show{
+
+    visibility:visible;
+
+    opacity:1;
+
+}
 
 /* ========================= */
 /* Quiz */

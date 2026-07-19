@@ -1,3 +1,6 @@
+const music = document.getElementById("bgMusic");
+let musicStarted = false;
+
 // Loading Screen
 setTimeout(() => {
 
@@ -37,7 +40,7 @@ const typing = document.getElementById("typing");
 
 const nextBtn = document.getElementById("nextBtn");
 
-const music = document.getElementById("bgMusic");
+
 
 let index = 0;
 
@@ -183,147 +186,209 @@ function autoSlide() {
 
 // Gift Box
 // Gift Box
+// =========================
+// Gift Page
+// =========================
+// ======================================================
+// GIFT PAGE
+// ======================================================
 
 const giftBox = document.getElementById("giftBox");
 const openGift = document.getElementById("openGift");
 const giftMessage = document.getElementById("giftMessage");
 
+// Open Gift Button
+
 if (giftBox && openGift && giftMessage) {
 
     openGift.onclick = () => {
 
-        console.log("Gift button clicked");
+        // Prevent clicking again
+        openGift.disabled = true;
 
+        // Open Gift Animation
         giftBox.classList.add("open");
 
+        // Hide Open Button
         openGift.style.display = "none";
 
+        // Show Message after 1 second
         setTimeout(() => {
+
             giftMessage.style.display = "block";
+
         }, 1000);
+
+        // Move to Cake Page after 10 seconds
+        setTimeout(() => {
+
+            // Hide Gift Page
+            document.getElementById("gift-page").classList.remove("show");
+
+            // Show Cake Page
+            document.getElementById("cake-page").classList.add("show");
+
+            // Optional: Reset gift for next visit
+            giftBox.classList.remove("open");
+            giftMessage.style.display = "none";
+            openGift.style.display = "inline-block";
+            openGift.disabled = false;
+
+        }, 5000);
 
     };
 
 }
 
-blowBtn.onclick = () => {
 
-    document.querySelectorAll(".flame").forEach(flame => {
+// =========================
+// Cake Page
+// =========================
 
-        flame.classList.add("off");
+// ======================================================
+// CAKE PAGE
+// ======================================================
+// ======================================================
+// CAKE PAGE
+// ======================================================
 
-    });
-
-    setTimeout(() => {
-
-        document.getElementById("cake-page").classList.remove("show");
-
-        document.getElementById("video-page").classList.add("show");
-
-        document.getElementById("birthdayVideo").play();
-
-    },1500);
-
-};
-
+const blowBtn = document.getElementById("blowBtn");
 const birthdayVideo = document.getElementById("birthdayVideo");
 
-birthdayVideo.onended = () => {
+if (blowBtn && birthdayVideo) {
 
-    document.getElementById("video-page").classList.remove("show");
+    blowBtn.onclick = () => {
 
-    document.getElementById("letter-page").classList.add("show");
+        // Disable button so it can't be clicked twice
+        blowBtn.disabled = true;
 
-    index = 0;
-    typing.innerHTML = "";
+        // Blow out all candles
+        document.querySelectorAll(".flame").forEach(flame => {
+            flame.classList.add("off");
+        });
 
-    typeLetter();
+        // Change button text
+        blowBtn.innerHTML = "🎉 Happy Birthday! 🎉";
 
-};
+        // Wait 2 seconds, then open video page
+        setTimeout(() => {
+
+            document.getElementById("cake-page").classList.remove("show");
+            document.getElementById("video-page").classList.add("show");
+
+            birthdayVideo.currentTime = 0;
+            birthdayVideo.play();
+
+        }, 2000);
+
+    };
+
+}
+
+// ======================================================
+// VIDEO PAGE
+// ======================================================
+
+if (birthdayVideo) {
+
+    birthdayVideo.onended = () => {
+
+        birthdayVideo.pause();
+
+        birthdayVideo.currentTime = 0;
+
+        document.getElementById("video-page").classList.remove("show");
+
+        document.getElementById("letter-page").classList.add("show");
+
+        // Restart Letter
+
+        index = 0;
+
+        typing.innerHTML = "";
+
+        typeLetter();
+
+    };
+
+} 
 
 
+// Check Answer Function
+// ======================================================
+// CHECK ANSWER FUNCTION
+// ======================================================
+// ======================================================
+// CHECK ANSWER FUNCTION
+// ======================================================
 
-openGift.addEventListener("click", () => {
+function checkAnswer(correct, button) {
 
-    // Open the gift box
-    giftBox.classList.add("open");
+    // Start background music on the first quiz click
+    if (!musicStarted) {
 
-    // Hide the button
-    openGift.style.display = "none";
+        musicStarted = true;
 
-    // Show the gift message after 1 second
-    setTimeout(() => {
+        music.volume = 0.4; // Adjust volume if needed
 
-        giftMessage.style.display = "block";
+        music.play().catch(error => {
+            console.log("Music couldn't start:", error);
+        });
 
-    }, 1000);
+    }
 
-    // Automatically go to Cake page after 2 seconds
-    setTimeout(() => {
-
-        document.getElementById("gift-page").classList.remove("show");
-
-        document.getElementById("cake-page").classList.add("show");
-
-    }, 10000);
-
-});
-
-function checkAnswer(correct, button){
-
-    if(correct){
+    if (correct) {
 
         // Make correct answer green
         button.style.background = "#28a745";
         button.innerHTML = "✅ Your Birthday 🎂";
 
+        // Disable all quiz buttons
+        document.querySelectorAll(".option").forEach(btn => {
+            btn.disabled = true;
+        });
+
         // Show popup
         document.getElementById("birthdayPopup").classList.add("show");
 
+        // Wait 3 seconds
         setTimeout(() => {
 
-    document.getElementById("birthdayPopup").classList.remove("show");
+            document.getElementById("birthdayPopup").classList.remove("show");
 
-    document.getElementById("quiz-page").classList.remove("show");
+            document.getElementById("quiz-page").classList.remove("show");
 
-    document.getElementById("welcome").classList.add("show");
+            document.getElementById("welcome").classList.add("show");
 
-    // Stay on Welcome for 3 seconds
-    setTimeout(() => {
+            // Stay on Welcome page for 3 seconds
+            setTimeout(() => {
 
-       document.getElementById("welcome").classList.remove("show");
+                document.getElementById("welcome").classList.remove("show");
 
-       document.getElementById("gallery-page").classList.add("show");
+                document.getElementById("gallery-page").classList.add("show");
 
-      currentPhoto = 0;
+                currentPhoto = 0;
 
-      showPhoto();
+                showPhoto();
 
-     slideInterval = setInterval(autoSlide,1000);
+                clearInterval(slideInterval);
 
-        music.play().catch(()=>{});
-        index = 0;
-        typing.innerHTML = "";
+                slideInterval = setInterval(autoSlide, 1000);
 
-        typeLetter();
+            }, 3000);
 
-    }, 3000);
+        }, 3000);
 
-}, 3000);
+    } else {
 
-
-    }
-
-    else
-    {
-        // Wrong answer
+        // Wrong answer animation
         button.classList.add("wrong");
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
             button.classList.remove("wrong");
 
-        },500);
+        }, 500);
 
     }
 
